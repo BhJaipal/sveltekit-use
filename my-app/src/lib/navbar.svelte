@@ -6,14 +6,15 @@ import { page } from "$app/stores";
  */
 let routes= [
 	{ name: "Home", path: "/" },
-	{ name: "About", path: "/about" }
+	{ name: "About", path: "/about" },
+	{ name: "Users", path: "/posts" }
 ];
-let navHeight= "h-[60px] hidden";
+let navHeight= "h-auto hidden";
 function toggleHeight() {
-	if (navHeight == "h-[60px] block") {
+	if (navHeight == "h-auto block") {
 		navHeight = "h-0 hidden";
 	} else {
-		navHeight = "h-[60px] block";
+		navHeight = "h-auto block";
 	}
 }
 </script>
