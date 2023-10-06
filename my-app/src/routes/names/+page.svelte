@@ -1,13 +1,16 @@
 <script>
+import Loading from "$lib/Loading.svelte";
 async function load() {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const users = await res.json();
   return users;
 }
-let promise= load();
+
 </script>
 
-{#await promise then users}
+{#await load()}
+<Loading />
+{:then users}
 {#each users as user}
 <div class="user-data">
   <h3>{ user.name }</h3>
@@ -21,13 +24,22 @@ let promise= load();
 
 <style>
 .user-data{
-	margin-left: 42px;
-	padding-left: 20px;
-	width: 300px;
-	box-shadow: 5px 5px 5px #000;
-	@apply bg-purple-950 mt-5 mb-5;
+  margin-left: 42px;
+  padding-left: 20px;
+  width: 300px;
+  height: 70px;
+  box-shadow: 5px 5px 5px #000;
+  border-width: 3px;
+  @apply bg-purple-950 mt-5 mb-5 border-t-sky-800 border-l-sky-800 border-b-transparent border-r-transparent;
+  transition: linear .5s;
+}
+.user-data:hover{
+  height: 80px;
+  width: 320px;
+  margin-left: 32px;
 }
 .user-data>h6{
   @apply font-normal;
 }
+
 </style>
