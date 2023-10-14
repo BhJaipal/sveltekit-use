@@ -26,3 +26,6 @@ h4{
 h6{
 	@apply text-sm;
 }
+a{
+	@apply underline;
+}
