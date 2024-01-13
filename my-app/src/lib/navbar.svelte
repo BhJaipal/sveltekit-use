@@ -7,7 +7,8 @@
 	 */
 	let routes = [
 		{ name: 'Home', path: '/' },
-		{ name: 'About', path: '/about' }
+		{ name: 'About', path: '/about' },
+		{ name: "Login", path: '/dashboard/login' }
 	];
 	let navHeight = 'h-auto hidden';
 	function toggleHeight() {
@@ -19,18 +20,18 @@
 	}
 </script>
 
-<nav class="bg-indigo-800 h-auto border-b-sky-700 border-b-4">
-	<div class="text-left pl-2 py-0 h-12">
+<nav class="h-auto bg-indigo-800 border-b-4 border-b-sky-700">
+	<div class="h-12 py-0 pl-2 text-left">
 		<div class="inline-block">
 			<button
 				on:click={toggleHeight}
-				class="text-white font-bold bg-blue-700 hover:bg-sky-700 ml-2 rounded-md w-10 mt-2 h-8 pt-1"
+				class="w-10 h-8 pt-1 mt-2 ml-2 font-bold text-white bg-blue-700 rounded-md hover:bg-sky-700"
 			>
 				<i class="material-icons">menu</i>
 			</button>
 		</div>
 
-		<div class="inline-block text-xl bg-indigo-800 ml-3 mb-2 h-4">Navbar</div>
+		<div class="inline-block h-4 mb-2 ml-3 text-xl bg-indigo-800">Navbar</div>
 	</div>
 	<div class={navHeight}>
 		{#each routes as route}

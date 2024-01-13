@@ -1,11 +1,8 @@
 <script lang="ts">
-    import { writable } from "svelte/store";
-    import type { Writable } from "svelte/store";
-	let count: Writable<number> = writable(0);
-	export { count };
+	import { count } from "$lib/store/count";
 </script>
 <h3>This is Home page</h3>
-<div class="text-center flex justify-center items-center">
+<div class="flex items-center justify-center text-center">
     <button on:click={() => count.set($count - 1)}>-</button>
     <button>{$count}</button>
     <button on:click={() => count.set($count + 1)}>+</button>

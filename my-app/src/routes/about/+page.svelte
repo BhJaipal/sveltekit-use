@@ -1,26 +1,25 @@
 <script>
-	import { onMount } from 'svelte';
-	import { count } from '../+page.svelte';
+	import { count } from '$lib/store/count';
 	import Loading from '$lib/Loading.svelte';
-    /**
-     * @type {import('./$types').PageData}
-     */
-    let posts;
-	onMount(async () => {
-		let res = await fetch('https://jsonplaceholder.typicode.com/posts');
-		posts = await res.json();
-	});
+	export let data= {};
 </script>
 
-<div class="text-center text-xl font-bold">
-	Count is {$count}
+<div class="text-xl font-bold text-center">
+	<button on:click={() => (count.update((n) => n - 1))}>-</button>
+	<button>{$count}</button>
+	<button on:click={() => (count.update((n) => n + 1))}>+</button>
+
+	{#await data}
+		<Loading />
+	{:then out}
+		{#each data.data as post}
+			<h3>{post.title}</h3>
+		{/each}
+	{/await}
 </div>
-{#await posts}
-	<Loading />
-{:then posts}
-	<ul>
-        {#each posts as post}
-            <li>{post.title}</li>
-        {/each}
-	</ul>
-{/await}
+
+<style>
+	button {
+        @apply px-4 py-2 m-2 text-2xl bg-cyan-600 rounded-md font-bold mx-1;
+    }
+</style>

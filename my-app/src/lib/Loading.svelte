@@ -13,7 +13,7 @@
 		border-radius: 50%;
 		border-bottom-color: transparent;
 		box-sizing: border-box;
-		animation: rotate 1.2s linear infinite;
+		animation: rotate 1.5s linear infinite;
 	}
 
 	@keyframes rotate {
