@@ -1,25 +1,26 @@
+import { json } from '@sveltejs/kit';
 
 /**
  * Sends a POST request with form data and stores the received data in cookies.
  *
- * @param {Object} request - the request object containing the form data
- * @param {Object} cookies - the cookies object for storing the received data
- * @return {void}
+ * @param {import('@sveltejs/kit').RequestEvent} event - the request event
+ * @return {Promise<object>} - a promise that resolves to an object containing the received data
  */
-export async function POST({ request, cookies }) {
-    const data = request.formData();
+export async function POST(event) {
     /**
      * @type {FormData}
      */
-    //const formData = await data;
     /**
-     * @type {{ name: string, email: string, phone: string }}
+     * @type {{ name: FormDataEntryValue | null, email: FormDataEntryValue | null, phone: FormDataEntryValue | null }}
      */
+    const formData = await event.request.json();
+    // const formData = await data;
+    console.log(formData);
     const out = {
-        name: (await data).get('name'),
-        email: (await data).get('email'),
-        phone: (await data).get('phone')
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
     };
-    cookies.set('data', JSON.stringify(out), { path: '/' });
-    console.log(out);
+    event.cookies.set('data', JSON.stringify(out));
+    return json({ data: out });
 }

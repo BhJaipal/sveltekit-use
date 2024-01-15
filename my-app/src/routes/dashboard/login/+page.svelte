@@ -4,11 +4,10 @@
 	let formData = {
 		name: '',
 		email: '',
-		phone: 1234567890
+		phone: 123_456_7890
 	};
 	let sent= false;
 	let clicked= false;
-	let res_ok= false;
 
 	async function handleSubmit() {
     try {
@@ -20,15 +19,21 @@
             body: JSON.stringify(formData),
         });
 
-		res_ok= true;
         if (!response.ok) {
             throw new Error(`Failed to submit form: ${response.statusText}`);
-			res_ok= false;
         }
 		sent = true;
 
         const result = await response.json();
-        console.log("Form submitted successfully. Server response:", result);
+        if (result.error) {
+			throw new Error(`Failed to submit form: ${result.error}`);
+		} else {
+			console.log("Form submitted successfully:", result);
+			setTimeout(() => {
+				try { goto("/dashboard/profile"); }
+				catch (e) { console.log(e);goto("/dashboard/login"); }
+			}, 1000);
+		}
 
         // Optionally, you can update the UI or navigate to another page.
         // For example, if you have a success page, you can navigate to it:
@@ -68,7 +73,7 @@
 		<input
 			id="phone"
 			type="phone"
-			placeholder="123-456-7890"
+			placeholder="123_456_7890"
 			required
 			bind:value={formData.phone}
 			class="w-full px-4 py-2 border rounded-md"
@@ -78,8 +83,8 @@
 		<button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded-md">Submit</button>
 
 		{#if clicked}
-		{#if (sent) && (res_ok)}
-			<p class="text-green-500">Form submitted successfully</p>
+		{#if (sent)}
+		<p class="text-green-500">Form submitted successfully</p>
 			{setTimeout(() => {
 				goto("/dashboard/profile");
 			}, 1000)}
