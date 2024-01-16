@@ -8,7 +8,8 @@
 	let routes = [
 		{ name: 'Home', path: '/' },
 		{ name: 'About', path: '/about' },
-		{ name: "Login", path: '/dashboard/login' }
+		{ name: "Login", path: '/dashboard/login' },
+		{ name: "email", path: "/email" }
 	];
 	let navHeight = 'h-auto hidden';
 	function toggleHeight() {
